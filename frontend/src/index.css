@@ -4,36 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-h1 {
-  color: #343a40;
-}
-
-.grid {
-  display: grid;
-  gap: 16px;
-}
-
-.bg-white {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  transition: transform 0.2s ease-in-out;
-}
-
 .bg-white:hover {
   transform: translateY(-4px);
 }
