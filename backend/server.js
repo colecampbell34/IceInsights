@@ -9,14 +9,26 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
-// API routes (must come first!)
+// Route to fetch standings data from NHL API
 app.get('/', async (req, res) => {
   try {
     const response = await axios.get('https://api-web.nhle.com/v1/standings/now');
     res.json(response.data);
   } catch (error) {
-    console.error('Error fetching NHL teams:', error);
-    res.status(500).json({ error: 'Failed to fetch NHL teams' });
+    console.error('Error fetching NHL standings:', error);
+    res.status(500).json({ error: 'Failed to fetch NHL standings' });
+  }
+});
+
+// Route to fetch roster for a specific team
+app.get('/api/roster/:teamAbbrev/:season', async (req, res) => {
+  const { teamAbbrev, season } = req.params;
+  try {
+    const response = await axios.get(`https://api-web.nhle.com/v1/roster/${teamAbbrev}/${season}`);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching NHL roster:', error);
+    res.status(500).json({ error: 'Failed to fetch NHL roster' });
   }
 });
 

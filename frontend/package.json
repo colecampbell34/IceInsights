@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://localhost:8000",
+  "proxy": "https://api-web.nhle.com/",
   "eslintConfig": {
     "extends": [
       "react-app",
