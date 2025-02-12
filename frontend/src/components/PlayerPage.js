@@ -87,10 +87,6 @@
 
 // export default PlayerPage;
 
-
-
-
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -128,7 +124,7 @@ function PlayerPage() {
     heightInInches,
     weightInPounds,
     draftDetails,
-    careerTotals
+    careerTotals,
   } = playerData;
 
   return (
@@ -137,10 +133,12 @@ function PlayerPage() {
         {/* Player Headshot and Basic Info */}
         <img
           src={headshot}
-          alt={firstName + " " + lastName}
+          alt={firstName.default + " " + lastName.default}
           className="h-48 w-48 mx-auto rounded-full mb-4"
         />
-        <h1 className="text-3xl font-bold text-center">{firstName + " " + lastName}</h1>
+        <h1 className="text-3xl font-bold text-center">
+          {firstName.default + " " + lastName.default}
+        </h1>
         <p className="text-center text-lg">{position}</p>
         <p className="text-center text-lg">{fullTeamName.default}</p>
 
@@ -154,7 +152,8 @@ function PlayerPage() {
             <strong>Nationality:</strong> {birthCountry}
           </p>
           <p>
-            <strong>Height:</strong> {(heightInInches / 12) + "'" + heightInInches % 12}
+            <strong>Height:</strong>{" "}
+            {Math.floor(heightInInches / 12) + "'" + (heightInInches % 12)}
           </p>
           <p>
             <strong>Weight:</strong> {weightInPounds} lbs
@@ -162,7 +161,7 @@ function PlayerPage() {
         </div>
 
         {/* Draft Information */}
-        {draftDetails.year && (
+        {draftDetails?.year ? (
           <div className="mt-8">
             <h2 className="text-2xl font-semibold">Draft Information</h2>
             <p>
@@ -172,50 +171,58 @@ function PlayerPage() {
               <strong>Draft Team:</strong> {draftDetails.teamAbbrev}
             </p>
             <p>
-              <strong>Overall Draft Position:</strong> {draftDetails.overallPick}
+              <strong>Overall Draft Position:</strong>{" "}
+              {draftDetails.overallPick}
             </p>
           </div>
+        ) : (
+          <p className="mt-8 text-lg font-semibold">Undrafted</p>
         )}
 
         {/* Player Stats */}
-        <h2 className="text-2xl font-semibold mt-8">Stats</h2>
+        <h2 className="text-2xl font-semibold mt-8">Career Stats</h2>
         {position === "G" ? (
           /* Goalie Stats */
           <div className="mt-4">
             <p>
-              <strong>Games Played:</strong> {careerTotals.gamesPlayed}
+              <strong>Games Played:</strong>{" "}
+              {careerTotals.regularSeason.gamesPlayed}
             </p>
             <p>
-              <strong>Wins:</strong> {careerTotals.wins}
+              <strong>Wins:</strong> {careerTotals.regularSeason.wins}
             </p>
             <p>
-              <strong>Save Percentage:</strong> {careerTotals.savePercentage}
+              <strong>Save Percentage:</strong>{" "}
+              {careerTotals.regularSeason.savePctg.toFixed(3)}
             </p>
             <p>
-              <strong>Goals Against Average:</strong> {careerTotals.goalsAgainstAverage}
+              <strong>Goals Against Average:</strong>{" "}
+              {careerTotals.regularSeason.goalsAgainstAvg.toFixed(2)}
             </p>
             <p>
-              <strong>Shutouts:</strong> {careerTotals.shutouts}
+              <strong>Shutouts:</strong> {careerTotals.regularSeason.shutouts}
             </p>
           </div>
         ) : (
-            // NEED TO FIX THIS NOT ALL STATS ARE SHOWING
+          // NEED TO FIX THIS NOT ALL STATS ARE SHOWING
           /* Skater Stats */
           <div className="mt-4">
             <p>
-              <strong>Games Played:</strong> {careerTotals.gamesPlayed}
+              <strong>Games Played:</strong>{" "}
+              {careerTotals.regularSeason.gamesPlayed}
             </p>
             <p>
-              <strong>Goals:</strong> {careerTotals.goals}
+              <strong>Goals:</strong> {careerTotals.regularSeason.goals}
             </p>
             <p>
-              <strong>Assists:</strong> {careerTotals.assists}
+              <strong>Assists:</strong> {careerTotals.regularSeason.assists}
             </p>
             <p>
-              <strong>Points:</strong> {careerTotals.points}
+              <strong>Points:</strong> {careerTotals.regularSeason.points}
             </p>
             <p>
-              <strong>Plus/Minus:</strong> {careerTotals.plusMinus}
+              <strong>Plus/Minus:</strong>{" "}
+              {careerTotals.regularSeason.plusMinus}
             </p>
           </div>
         )}

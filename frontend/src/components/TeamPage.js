@@ -67,9 +67,6 @@
 
 // export default TeamPage;
 
-
-
-
 // import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 // import axios from "axios";
@@ -130,12 +127,9 @@
 
 // export default TeamPage;
 
-
-
-
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
+import axios, { all } from "axios";
 
 function TeamPage() {
   const { teamAbbrev } = useParams();
@@ -147,7 +141,15 @@ function TeamPage() {
     axios
       .get(`http://localhost:8000/api/roster/${teamAbbrev}/20242025`)
       .then((response) => {
-        setRoster(response.data.forwards); // Adjust as needed for other positions
+
+        const allPlayers = [
+          ...(response.data.forwards || []),
+          ...(response.data.defensemen || []),
+          ...(response.data.goalies || []),
+        ];
+
+        setRoster(allPlayers);
+        
       })
       .catch((error) => {
         console.error("Error fetching roster data:", error);
