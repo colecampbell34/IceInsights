@@ -32,6 +32,18 @@ app.get('/api/roster/:teamAbbrev/:season', async (req, res) => {
   }
 });
 
+// Route to fetch stats for a specific player
+app.get('/api/player/:playerID/landing', async (req, res) => {
+  const { playerID } = req.params;
+  try {
+    const response = await axios.get(`https://api-web.nhle.com/v1/player/${playerID}/landing`);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching NHL roster:', error);
+    res.status(500).json({ error: 'Failed to fetch NHL roster' });
+  }
+});
+
 // Serve React static files
 app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 

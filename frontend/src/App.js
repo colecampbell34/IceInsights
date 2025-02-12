@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import TeamPage from "./components/TeamPage";
+import PlayerPage from "./components/PlayerPage";
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -77,6 +78,7 @@ function App() {
             }
           />
           <Route path="/team/:teamAbbrev" element={<TeamPage />} />
+          <Route path="/player/:playerId" element={<PlayerPage />} />
         </Routes>
       </div>
     </Router>
