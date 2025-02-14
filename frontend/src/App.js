@@ -28,56 +28,69 @@ function App() {
 
   return (
     <Router>
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">NHL Standings</h1>
+      <div className="mx-auto">
         <Routes>
+          {/* Home route showing NHL Standings */}
           <Route
             path="/"
             element={
-              <table className="min-w-full bg-white border border-gray-300">
-                <thead>
-                  <tr className="bg-gray-200">
-                    <th className="border px-4 py-2">Logo</th>
-                    <th className="border px-4 py-2">Team</th>
-                    <th className="border px-4 py-2">Games Played</th>
-                    <th className="border px-4 py-2">Wins</th>
-                    <th className="border px-4 py-2">Losses</th>
-                    <th className="border px-4 py-2">OT Losses</th>
-                    <th className="border px-4 py-2">Points</th>
-                    <th className="border px-4 py-2">Goal Differential</th>
-                    <th className="border px-4 py-2">Win %</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {teams.map((team, index) => (
-                    <tr key={index} className="text-center">
-                      <td className="border px-4 py-2">
-                        <img
-                          src={team.teamLogo}
-                          alt={team.teamAbbrev.default}
-                          className="h-10 mx-auto"
-                        />
-                      </td>
-                      <td className="border px-4 py-2">
-                        {/* Link to team page */}
-                        <Link to={`/team/${team.teamAbbrev.default}`} className="text-blue-500 hover:underline">
-                          {team.teamName.default}
-                        </Link>
-                      </td>
-                      <td className="border px-4 py-2">{team.gamesPlayed}</td>
-                      <td className="border px-4 py-2">{team.wins}</td>
-                      <td className="border px-4 py-2">{team.losses}</td>
-                      <td className="border px-4 py-2">{team.otLosses}</td>
-                      <td className="border px-4 py-2 font-bold">{team.points}</td>
-                      <td className="border px-4 py-2">{team.goalDifferential}</td>
-                      <td className="border px-4 py-2">{team.regulationPlusOtWinPctg.toFixed(3).slice(1)}</td>
+              <>
+                <h1 className="text-2xl font-bold mb-4">NHL Standings</h1>
+                <table className="min-w-full bg-white border border-gray-300">
+                  <thead>
+                    <tr className="bg-gray-200">
+                      <th className="border px-4 py-2">Logo</th>
+                      <th className="border px-4 py-2">Team</th>
+                      <th className="border px-4 py-2">Games Played</th>
+                      <th className="border px-4 py-2">Wins</th>
+                      <th className="border px-4 py-2">Losses</th>
+                      <th className="border px-4 py-2">OT Losses</th>
+                      <th className="border px-4 py-2">Points</th>
+                      <th className="border px-4 py-2">Goal Differential</th>
+                      <th className="border px-4 py-2">Win %</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {teams.map((team, index) => (
+                      <tr key={index} className="text-center">
+                        <td className="border px-4 py-2">
+                          <img
+                            src={team.teamLogo}
+                            alt={team.teamAbbrev.default}
+                            className="h-10 mx-auto"
+                          />
+                        </td>
+                        <td className="border px-4 py-2">
+                          <Link
+                            to={`/team/${team.teamAbbrev.default}`}
+                            className="inline-block mt-4 text-blue-600 hover:text-blue-800 transition duration-200 font-semibold"
+                          >
+                            {team.teamName.default}
+                          </Link>
+                        </td>
+                        <td className="border px-4 py-2">{team.gamesPlayed}</td>
+                        <td className="border px-4 py-2">{team.wins}</td>
+                        <td className="border px-4 py-2">{team.losses}</td>
+                        <td className="border px-4 py-2">{team.otLosses}</td>
+                        <td className="border px-4 py-2 font-bold">
+                          {team.points}
+                        </td>
+                        <td className="border px-4 py-2">
+                          {team.goalDifferential}
+                        </td>
+                        <td className="border px-4 py-2">
+                          {team.regulationPlusOtWinPctg.toFixed(3).slice(1)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
             }
           />
+          {/* Team Page route */}
           <Route path="/team/:teamAbbrev" element={<TeamPage />} />
+          {/* Player Page route */}
           <Route path="/player/:playerId" element={<PlayerPage />} />
         </Routes>
       </div>
