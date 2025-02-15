@@ -40,7 +40,7 @@ app.get('/api/player/:playerID/landing', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error('Error fetching NHL roster:', error);
-    res.status(500).json({ error: 'Failed to fetch NHL roster' });
+    res.status(500).json({ error: 'Failed to fetch player profile' });
   }
 });
 
