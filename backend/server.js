@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // Route to fetch standings data from NHL API
-app.get('/', async (req, res) => {
+app.get('/standings', async (req, res) => {
   try {
     const response = await axios.get('https://api-web.nhle.com/v1/standings/now');
     res.json(response.data);

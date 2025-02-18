@@ -1,49 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-function StandingsPage({ teams }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 p-8">
-      {/* Header Section */}
-      <header className="bg-blue-900 text-white p-6 rounded-md shadow-md mb-8">
-        <h1 className="text-4xl font-bold">Ice Insights</h1>
-        <p className="text-lg mt-2">
-          Your go-to NHL analytics dashboard for predicting game outcomes!
+function StandingsPage() {
+  const [teams, setTeams] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/standings")
+      .then((response) => {
+        setTeams(response.data.standings);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300">
+        <p className="text-xl font-semibold text-gray-700 animate-pulse">
+          Loading standings...
         </p>
-      </header>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-red-300">
+        <p className="text-xl font-semibold text-red-700">
+          Error loading standings. Please try again later.
+        </p>
+      </div>
+    );
 
-      {/* Navbar */}
-      <nav className="bg-gray-800 text-white p-4 rounded-md shadow-md mb-8">
-        <ul className="flex space-x-6 justify-center">
-          <li>
-            <a
-              href="/"
-              className="px-4 py-2 bg-blue-400 rounded hover:bg-blue-600 transition"
-            >
-              Link1
-            </a>
-          </li>
-          <li>
-            <a
-              href="/teams"
-              className="px-4 py-2 bg-blue-400 rounded hover:bg-blue-600 transition"
-            >
-              Link2
-            </a>
-          </li>
-          <li>
-            <a
-              href="/players"
-              className="px-4 py-2 bg-blue-400 rounded hover:bg-blue-600 transition"
-            >
-              Link3
-            </a>
-          </li>
-          {/* Add more links as needed */}
-        </ul>
-      </nav>
-
-      {/* NHL Standings Table */}
-      <h2 className="text-2xl font-bold mb-4 text-center">NHL Standings</h2>
+  return (
+    <div className="mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">NHL Standings</h1>
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
@@ -69,12 +66,12 @@ function StandingsPage({ teams }) {
                 />
               </td>
               <td className="border px-4 py-2">
-                <a
-                  href={`/team/${team.teamAbbrev.default}`}
-                  className="font-bold text-blue-500 hover:underline"
+                <Link
+                  to={`/team/${team.teamAbbrev.default}`}
+                  className="font-bold text-blue-600 hover:underline"
                 >
                   {team.teamName.default}
-                </a>
+                </Link>
               </td>
               <td className="border px-4 py-2">{team.gamesPlayed}</td>
               <td className="border px-4 py-2">{team.wins}</td>
@@ -88,7 +85,8 @@ function StandingsPage({ teams }) {
                     : team.goalDifferential < 0
                     ? "text-red-600"
                     : "text-gray-600"
-                }`}>
+                }`}
+              >
                 {team.goalDifferential}
               </td>
               <td className="border px-4 py-2">
