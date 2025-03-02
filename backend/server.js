@@ -44,6 +44,23 @@ app.get('/api/player/:playerID/landing', async (req, res) => {
   }
 });
 
+// Route to fetch schedule data from NHL API
+app.get('/predictor', async (req, res) => {
+  const { date } = req.query; // Get the date from query parameters
+
+  if (!date) {
+    return res.status(400).json({ error: 'Date parameter is required' });
+  }
+
+  try {
+    const response = await axios.get(`https://api-web.nhle.com/v1/schedule/${date}`);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching NHL schedule:', error);
+    res.status(500).json({ error: 'Failed to fetch NHL schedule' });
+  }
+});
+
 // Serve React static files
 app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 

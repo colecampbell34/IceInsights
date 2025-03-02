@@ -4,6 +4,7 @@ import Standings from "./components/Standings";
 import TeamPage from "./components/TeamPage";
 import PlayerPage from "./components/PlayerPage";
 import LandingPage from "./components/LandingPage";
+import GamePredictor from "./components/GamePredictor";
 import ScrollToTop from "./utils/ScrollToTop";
 
 function App() {
@@ -23,22 +24,23 @@ function App() {
               <Link to="/standings" className="font-bold text-yellow-50 mx-2 hover:underline">
                 NHL Standings
               </Link>
+              <Link to="/predictor" className="font-bold text-yellow-50 mx-2 hover:underline">
+                Game Predictor
+              </Link>
             </nav>
           </div>
         </header>
 
         {/* Routes */}
         <Routes>
-          {/* Landing Page Route */}
           <Route path="/" element={<LandingPage />} />
 
-          {/* Standings Page Route */}
           <Route path="/standings" element={<Standings />} />
 
-          {/* Team Page Route */}
+          <Route path="/predictor" element={<GamePredictor />} />
+
           <Route path="/team/:teamAbbrev" element={<TeamPage />} />
 
-          {/* Player Page Route */}
           <Route path="/player/:playerId" element={<PlayerPage />} />
 
         </Routes>
