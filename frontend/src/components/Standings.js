@@ -10,7 +10,7 @@ function StandingsPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/standings")
+      .get("http://localhost:8000/api/standings")
       .then((response) => {
         setTeams(response.data.standings);
         setLoading(false);
