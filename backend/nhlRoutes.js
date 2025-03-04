@@ -110,6 +110,41 @@ const axios = require('axios');
 
 const router = express.Router();
 
+// Route to fetch standings data from NHL API
+router.get('/standings', async (req, res) => {
+  try {
+    const response = await axios.get('https://api-web.nhle.com/v1/standings/now');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching NHL standings:', error);
+    res.status(500).json({ error: 'Failed to fetch NHL standings' });
+  }
+});
+
+// Route to fetch roster for a specific team
+router.get('/roster/:teamAbbrev/:season', async (req, res) => {
+  const { teamAbbrev, season } = req.params;
+  try {
+    const response = await axios.get(`https://api-web.nhle.com/v1/roster/${teamAbbrev}/${season}`);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching NHL roster:', error);
+    res.status(500).json({ error: 'Failed to fetch NHL roster' });
+  }
+});
+
+// Route to fetch stats for a specific player
+router.get('/player/:playerID/landing', async (req, res) => {
+  const { playerID } = req.params;
+  try {
+    const response = await axios.get(`https://api-web.nhle.com/v1/player/${playerID}/landing`);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching NHL player stats:', error);
+    res.status(500).json({ error: 'Failed to fetch player profile' });
+  }
+});
+
 // Route to fetch schedule data
 router.get('/predictor', async (req, res) => {
   const { date } = req.query;
@@ -138,11 +173,6 @@ router.post('/predict', async (req, res) => {
   try {
     const response = await axios.get('https://api-web.nhle.com/v1/standings/now');
     const standings = response.data.standings;
-
-    standings.forEach(team => {
-      console.log(team.teamAbbrev); // Should log an object like { default: "WPG" }
-      console.log(team.teamAbbrev.default); // Should log "WPG"
-  });
 
     const homeTeamData = standings.find(team => team.teamAbbrev.default === homeTeam);
     const awayTeamData = standings.find(team => team.teamAbbrev.default === awayTeam);

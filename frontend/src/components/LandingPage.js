@@ -19,7 +19,7 @@ function LandingPage() {
       </header>
 
       {/* Features Section */}
-      <section className="py-16 bg-white text-gray-900">
+      <section className="py-16 text-gray-900">
         <h2 className="text-3xl font-bold text-center">Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 px-8 md:px-16">
           {/* Feature 1 */}
@@ -65,7 +65,7 @@ function LandingPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 bg-gray-100">
+      <section className="py-16">
         <h2 className="text-3xl font-bold text-center mb-12">
           What Our Users Say
         </h2>

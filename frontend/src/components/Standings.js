@@ -42,7 +42,7 @@ function StandingsPage() {
   return (
     <div className="mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">NHL Standings</h1>
-      <table className="min-w-full bg-white border border-gray-300">
+      <table className="min-w-full border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
             <th className="border px-4 py-2">Logo</th>
