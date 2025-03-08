@@ -166,6 +166,9 @@
 
 // export default GamePredictor;
 
+
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -173,9 +176,13 @@ function GamePredictor() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-indexed
+    const day = today.getDate().toString().padStart(2, '0'); // Get day as 2 digits
+    return `${year}-${month}-${day}`;  // Format as YYYY-MM-DD
+  });
   const [prediction, setPrediction] = useState(null);
   const [loadingPrediction, setLoadingPrediction] = useState(false);
   const [predictionError, setPredictionError] = useState(null);
@@ -247,7 +254,7 @@ function GamePredictor() {
           type="date"
           id="gameDate"
           value={selectedDate}
-          min={new Date().toISOString().split("T")[0]}
+          min={selectedDate}  // FIX THIS SO MIN DATE DOESN'T CHANGE WHEN USER SELECTS
           onChange={handleDateChange}
           className="border px-3 py-1 rounded-md"
         />
@@ -324,9 +331,9 @@ function GamePredictor() {
         <div className="mt-6 p-4 shadow-md rounded-lg">
           <h2 className="text-xl font-bold text-center">Game Prediction</h2>
           <p className="text-center mt-4">
-            <strong>Winner:</strong> {prediction.predictedWinner}
+            <strong>Predicted Winner:</strong> {prediction.predictedWinner}
           </p>
-          <p className="text-center mt-2">
+          <p className="text-center">
             <strong>Predicted Score:</strong> {prediction.predictedScore}
           </p>
         </div>
