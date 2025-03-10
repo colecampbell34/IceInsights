@@ -14,7 +14,7 @@ function App() {
 
       <div className="min-h-screen bg-gray-100">
         {/* Header/Navbar */}
-        <header className="bg-black text-white p-4">
+        <header className="sticky top-0 bg-black text-white p-4 z-50 shadow-md">
           <div className="container mx-auto flex justify-between items-center">
             <h1 className="text-yellow-50 text-3xl font-bold">Ice Insights</h1>
             <nav>

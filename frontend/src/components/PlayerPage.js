@@ -114,9 +114,9 @@ function PlayerPage() {
                 className="h-56 w-56 mx-auto rounded-full border-4 border-blue-500 shadow-md"
               />
               <h2 className="mt-6 text-3xl font-bold text-gray-800">
-              {position === "L" || position === "R"
-                      ? `${position}W`
-                      : position}
+                {position === "L" || position === "R"
+                  ? `${position}W`
+                  : position}
               </h2>
               <p className="text-xl text-gray-600 mt-2">
                 {fullTeamName.default}
@@ -154,22 +154,20 @@ function PlayerPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
                 <p>
                   <strong className="text-blue-600">Draft Year:</strong>{" "}
-                  {draftDetails.year}
+                  {draftDetails ? draftDetails.year : "Undrafted"}
                 </p>
                 <p>
                   <strong className="text-blue-600">Draft Team:</strong>{" "}
-                  {draftDetails.teamAbbrev}
+                  {draftDetails ? draftDetails.teamAbbrev : "Undrafted"}
                 </p>
                 <p>
                   <strong className="text-blue-600">
                     Overall Draft Position:
                   </strong>{" "}
-                  {draftDetails.overallPick}
+                  {draftDetails ? draftDetails.overallPick : "Undrafted"}
                 </p>
                 <p>
-                  <strong className="text-blue-600">
-                    Shoots/Catches:
-                  </strong>{" "}
+                  <strong className="text-blue-600">Shoots/Catches:</strong>{" "}
                   {shootsCatches}
                 </p>
               </div>
