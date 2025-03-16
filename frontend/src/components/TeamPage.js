@@ -65,32 +65,32 @@ function TeamPage() {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300">
-        <p className="text-xl font-semibold text-gray-700 animate-pulse">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-700">
+        <p className="text-xl font-semibold text-white animate-pulse">
           Loading roster...
         </p>
       </div>
     );
   if (error)
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-red-300">
-        <p className="text-xl font-semibold text-red-700">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-900 to-red-700">
+        <p className="text-xl font-semibold text-white">
           Error loading roster data. Please try again later.
         </p>
       </div>
     );
 
   return (
-    <div className={`${teamColor} min-h-screen flex flex-col items-center`}>
+    <div className={`min-h-screen bg-gradient-to-br from-gray-900 to-gray-700`}>
       <header
-        className={`w-full py-12 text-white text-center ${teamColor} shadow-md`}
+        className={`w-full py-16 text-white text-center ${teamColor} shadow-2xl`}
       >
         <h1 className="text-5xl font-bold mb-4">{teamAbbrev} Team Roster</h1>
       </header>
 
-      <section className="w-full px-6 py-8 bg-opacity-80 bg-gray-800 shadow-lg rounded-lg max-w-7xl -mt-12">
+      <section className="w-full px-6 py-12 bg-opacity-90 bg-gray-800 shadow-2xl rounded-t-3xl max-w-7xl mx-auto -mt-12">
         {roster.length === 0 ? (
-          <p className="text-center text-gray-500 text-lg">
+          <p className="text-center text-gray-400 text-lg">
             No players available for this team.
           </p>
         ) : (
@@ -99,7 +99,7 @@ function TeamPage() {
               <Link
                 key={player.id}
                 to={`/player/${player.id}`}
-                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all ease-in-out duration-300 transform hover:scale-105"
+                className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all ease-in-out duration-300 transform hover:scale-105"
               >
                 <div className="flex flex-col items-center">
                   <img
@@ -107,13 +107,13 @@ function TeamPage() {
                     alt={`${player.firstName.default} ${player.lastName.default}`}
                     className="h-32 w-32 mx-auto rounded-full object-cover mb-4 border-4 border-blue-500"
                   />
-                  <h3 className="text-2xl font-semibold text-gray-800">{`${player.firstName.default} ${player.lastName.default}`}</h3>
-                  <p className="text-lg text-gray-600">
+                  <h3 className="text-2xl font-semibold text-white">{`${player.firstName.default} ${player.lastName.default}`}</h3>
+                  <p className="text-lg text-gray-300">
                     {player.positionCode === "L" || player.positionCode === "R"
                       ? `${player.positionCode}W`
                       : player.positionCode}
                   </p>
-                  <p className="text-lg text-gray-500">
+                  <p className="text-lg text-gray-400">
                     #{player.sweaterNumber}
                   </p>
                 </div>
